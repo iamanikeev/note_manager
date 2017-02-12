@@ -1,0 +1,17 @@
+appdirs==1.4.0
+coreapi==2.2.3
+coreschema==0.0.4
+Django==1.10.5
+django-coreapi==0.5.0
+django-registration==2.2
+django-rest-auth==0.9.0
+djangorestframework==3.5.3
+itypes==1.1.0
+Jinja2==2.9.5
+MarkupSafe==0.23
+packaging==16.8
+pyparsing==2.1.10
+requests==2.13.0
+six==1.10.0
+uritemplate==3.0.0
+uuid==1.30
