@@ -1,41 +1,40 @@
 Ext.define('MyApp.controller.NoteManager', {
     extend: 'Ext.app.Controller',
-    views: ['NoteManager'],
+    views: ['NoteManager', 'NoteCreation'],
     stores:['NoteManager'],
+    alias: 'controller.notemanager',
 
     refs: [
-        { 'ref': 'noteManagerGrid', selector: '#noteManagerGrid' },
+        { 'ref': 'grid', selector: 'grid' },
     ],
 
     init: function() {
-        const noteManagerController = this;
-        const loginController = MyApp.getApplication().getController('Login');
+        const me = this;
+        const navigationController = MyApp.getApplication().getController('Navigation');
 
         this.control({
-            '#tbDelete': {
+            '#noteDelete': {
                 click: this.onRemoveRow
             },
 
-            '#tbAdd': {
-                click: this.onAddRow
+            '#noteAdd': {
+                click: function() {
+                    console.log('create');
+                    Ext.ComponentQuery.query('#contentPanel')[0]
+                        .add(me.getView('NoteCreation').create().show());
+                }
             },
-
-            'grid': {
-                canceledit: this.onCancelEdit
-            }
         });
-
-        loginController.on('ready', function() {
-            noteManagerController.view = noteManagerController.getView('NoteManager').create();
-            noteManagerController.getNoteManagerGrid().show();
+        this.on('new_record', function() {
+            // todo: this even is not being caught
+            console.log('refreshing records');
+            this.getGrid().getStore().getNewRecords();
+        });
+        navigationController.on('ready', () => {
+            // Create grid as soon as navigation container is ready
+            Ext.ComponentQuery.query('#contentPanel')[0]
+                .add(me.getView('NoteManager').create().show());
         }, {single: true});
-
-    },
-
-    onAddRow: function() {
-        var rowEditor = this.getGrid().findPlugin('rowediting');
-        rowEditor.cancelEdit();
-        rowEditor.startEdit(0, 0);
     },
 
     onRemoveRow: function() {
@@ -43,9 +42,4 @@ Ext.define('MyApp.controller.NoteManager', {
             row.drop();
         });
     },
-
-    onCancelEdit: function(editor, context) {
-        if (context.record.phantom)
-            context.record.drop();
-    }
 });

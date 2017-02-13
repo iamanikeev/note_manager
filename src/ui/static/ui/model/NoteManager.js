@@ -1,5 +1,6 @@
 Ext.define('MyApp.model.NoteManager', {
     extend: 'Ext.data.Model',
+    alias: 'model.note',
 
     idProperty: 'uuid',
 

@@ -1,7 +1,7 @@
 Ext.define('MyApp.view.NoteManager', {
     extend: 'Ext.grid.Panel',
     itemId: 'noteManagerGrid',
-    title: 'Note manager',
+    reference: 'noteManagerGrid',
 
     // store the grid is bound to
     store: 'NoteManager',
@@ -17,48 +17,29 @@ Ext.define('MyApp.view.NoteManager', {
 
     // top toolbar
     tbar: [
-        {text: 'delete', itemId: 'tbDelete'},
-        {text: 'add', itemId: 'tbAdd'}
+        {text: 'Delete', itemId: 'noteDelete'},
+        {text: 'Add note', itemId: 'noteAdd'}
     ],
 
-    // select complete rows
-    selType: 'rowmodel',
+    selModel: 'rowmodel',
 
-    plugins: [
-        // enable row editor
-        Ext.create('Ext.grid.plugin.RowEditing', {
-            itemId: 'rowEditor',
-
-            // on double-click
-            clicksToEdit: 2
-        }),
-        'gridfilters'
-    ],
+    plugins: {
+        ptype: 'rowediting',
+        clicksToEdit: 2
+    },
 
     // configure columns
     columns: [
         {
-            text: 'ID',
-            dataIndex: 'uuid',
-            flex: 1,
-            filter: 'string',
-            editor: {
-                xtype: 'textfield',
-                allowBlank: false
-            },
-            filter: {
-                type: 'string'
-            }
-        }, {
             text: 'Created',
             dataIndex: 'created_datetime',
             xtype: 'datecolumn',
-            format:'l, d. F Y',
+            format: 'l, d. F Y',
             width: 200,
             editor: {
                 xtype: 'datefield',
                 format: 'd.m.Y',
-                allowBlank: false
+                allowBlank: true
             }
         }, {
             text: 'Title',
@@ -105,18 +86,6 @@ Ext.define('MyApp.view.NoteManager', {
                 xtype: 'booleancolumn',
                 trueText: 'Yes',
                 falseText: 'No',
-            },
-        }, {
-            text: 'Owner',
-            dataIndex: 'owner',
-            flex: 1,
-            filter: 'string',
-            editor: {
-                xtype: 'textfield',
-                allowBlank: false
-            },
-            filter: {
-                type: 'string'
             },
         }
     ]

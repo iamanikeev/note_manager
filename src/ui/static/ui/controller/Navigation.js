@@ -19,6 +19,7 @@ Ext.define('MyApp.controller.Navigation', {
                         navigationController.view.hide();
                         // relaunch application
                         MyApp.getApplication().launch();
+                        window.location.reload();
                     });
                 }
             }

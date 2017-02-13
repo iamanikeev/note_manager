@@ -6,6 +6,7 @@ Ext.define('MyApp.helper.CrsfTokenHelper', {
 
     constructor: function() {
         Ext.Ajax.on('beforerequest', function (conn, options) {
+            options.url = options.url.replace(/\/?$/, '/'); // append trailing slash to every request
             if (!(/^http:.*/.test(options.url) || /^https:.*/.test(options.url))) {
                 if (typeof (options.headers) === "undefined") {
                     options.headers = {

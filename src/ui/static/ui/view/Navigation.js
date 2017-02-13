@@ -23,10 +23,7 @@ Ext.define('MyApp.view.Navigation', {
         region: 'center',
         xtype: 'container',
         itemId: 'contentPanel',
-        layout: {
-            type: 'card',
-            deferredRender: true
-        },
+        html: '<div id="navigation-container"></div>',
 
         items: [
             { title: 'Note manager' }

@@ -17,9 +17,10 @@ Ext.application({
         loginController.getUserInfo((userInfo) => {
             if (userInfo !== false) {
                 navigationController.updateUserinfo(userInfo).view.show();
-                // noteManagerController.getView('NoteManager')
+                navigationController.fireEvent('ready');
             } else {
                 app.getController('Login').showLoginWindow().clearForm();
+                navigationController.fireEvent('ready');
             }
         });
     }

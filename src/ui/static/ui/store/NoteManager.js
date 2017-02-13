@@ -1,7 +1,8 @@
 Ext.define('MyApp.store.NoteManager', {
-    requires: ['Ext.data.proxy.Rest', 'MyApp.model.NoteManager'],
+    requires: ['MyApp.helper.DjangoProxy', 'MyApp.model.NoteManager'],
     extend: 'Ext.data.Store',
     model: 'MyApp.model.NoteManager',
+    alias: 'notemanager',
 
     remoteSort: true,
     remoteFilter: true,
@@ -9,7 +10,7 @@ Ext.define('MyApp.store.NoteManager', {
     pageSize: 50,
 
     proxy: {
-        type: 'rest',
+        type: 'django',
         url: '/api/notes/'
     }
 });

@@ -76,7 +76,6 @@ Ext.define('MyApp.controller.Login', {
                         navigationController.updateUserinfo(userInfo);
                         loginController.unmaskAndHide();
                         navigationController.view.show();
-                        loginController.fireEvent('ready');
                     } else {
                         loginController.clearPasswordAndFocus().setPasswordError('Failed to fetch user info upon login');
                     }

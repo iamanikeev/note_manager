@@ -71,6 +71,14 @@ class NoteViewSet(viewsets.ModelViewSet):
     serializer_class = NoteSerializer
     permission_classes = (permissions.IsAuthenticated, IsOwner)
 
+    def perform_create(self, serializer):
+        """
+        Retreive user info from request parameters
+        :param serializer: 
+        :return: 
+        """
+        serializer.save(owner=self.request.user)
+
 
 class CreateUserView(generics.CreateAPIView):
 
