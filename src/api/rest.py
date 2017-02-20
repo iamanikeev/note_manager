@@ -79,6 +79,13 @@ class NoteViewSet(viewsets.ModelViewSet):
         """
         serializer.save(owner=self.request.user)
 
+    def get_queryset(self):
+        """
+        Return list of notes owned only by a creator
+        """
+        user = self.request.user
+        return Note.objects.filter(owner=user)
+
 
 class CreateUserView(generics.CreateAPIView):
 
